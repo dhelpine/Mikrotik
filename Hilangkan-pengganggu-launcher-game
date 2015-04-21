@@ -1,0 +1,11 @@
+- masuk winbox copy script berikut :
+
+/ip dns static
+add address=127.0.0.1 name=cfs.u-ad.info
+add address=127.0.0.1 name=a02.u-ad.info
+
+- buka IP-->DNS-->CACHE-->FLUSH CACHE
+
+- buka CMD pada pc
+- ketik perintah berikut :
+	ipconfig /flushdns
