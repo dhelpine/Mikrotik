@@ -1,0 +1,8 @@
+/interface pptp-client
+add add-default-route=no allow=pap,chap,mschap1,mschap2 connect-to=142.4.206.228 dial-on-demand=no disabled=no max-mru=\
+1460 max-mtu=1460 mrru=disabled name=vpn-VPNBook password=8AdrAcre profile=default-encryption user=vpnbook
+/ip route
+add check-gateway=ping disabled=no distance=1 dst-address=208.67.220.220/32 gateway=\
+vpn-VPNBook scope=30 target-scope=10
+add check-gateway=ping disabled=no distance=1 dst-address=208.67.222.222/32 gateway=\
+vpn-VPNBook scope=30 target-scope=10
