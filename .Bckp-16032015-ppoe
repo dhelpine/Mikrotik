@@ -1,0 +1,202 @@
+# mar/16/2015 12:57:59 by RouterOS 6.27
+# software id = ZJ3M-ESHW
+#
+/interface ethernet
+set [ find default-name=ether1 ] name=ether2 speed=1Gbps
+set [ find default-name=ether2 ] name=ether3
+set [ find default-name=ether3 ] name=ether4
+set [ find default-name=ether4 ] name=ether5
+set [ find default-name=ether5 ] name=ether6
+/interface pppoe-client
+add add-default-route=yes disabled=no interface=ether2 name=speedy password=\
+    TVKMGP39CD use-peer-dns=yes user=142411100077@telkom.net
+/interface pptp-client
+add connect-to=142.4.206.228 disabled=no max-mru=1460 max-mtu=1460 name=\
+    vpn-bkp password=rawrA6ep user=vpnbook
+add connect-to=176.126.237.207 disabled=no mrru=1600 name=vpn-free password=\
+    9u62RtgMd user=pptp
+add connect-to=202.129.185.65 mrru=1600 name=vpn-igi password=bdg91011 user=\
+    bdg
+/ip firewall layer7-protocol
+add name=torrent-dns regexp="^.+(torrent|thepiratebay|isohunt|entertane|demono\
+    id|btjunkie|mininova|flixflux|vertor|h33t|zoozle|bitnova|bitsoup|meganova|\
+    fulldls|btbot|fenopy|gpirate|commonbits).*\$"
+add name=torrent-web regexp="^.*(get|GET).+(torrent|thepiratebay|isohunt|enter\
+    tane|demonoid|btjunkie|mininova|flixflux|vertor|h33t|zoozle|bitnova|bitsou\
+    p|meganova|fulldls|btbot|fenopy|gpirate|commonbits).*\$"
+add name=all-cheat regexp=pekalongan-kommunity.com|gembelcit.blogspot.com
+/port
+set 0 name=serial0
+set 1 name=serial1
+/queue tree
+add name="FROM INTERNET" parent=global queue=default
+add name="1.F HIGH PRIORITY" packet-mark=icmp,dns-tcp,dns-udp parent=\
+    "FROM INTERNET" priority=1 queue=default
+add name="2.F VIP" packet-mark=vip parent="FROM INTERNET" priority=3 queue=\
+    default
+add name="3.F TV-WINBOX" packet-mark=tv-winbox parent="FROM INTERNET" \
+    priority=5 queue=default
+add max-limit=2200k name="4.F BROWSING" parent="FROM INTERNET" priority=6 \
+    queue=default
+add max-limit=1400k name="4.1F LOW DATA BROWSING" packet-mark=low-browsing \
+    parent="4.F BROWSING" priority=6 queue=default
+add max-limit=1500k name="4.2F MIDLE DATA BROWSING" packet-mark=\
+    midle-browsing parent="4.F BROWSING" priority=6 queue=default
+add max-limit=1700k name="4.3F HIGH DATA BROWSING" packet-mark=high-browsing \
+    parent="4.F BROWSING" priority=6 queue=default
+add max-limit=1M name="5.F STREAMING" packet-mark=streaming parent=\
+    "FROM INTERNET" priority=6 queue=default
+add max-limit=1M name="6.F TRANSFER FILE" parent="FROM INTERNET" priority=7 \
+    queue=default
+add max-limit=1M name="6.1F FTP" packet-mark=ftp parent="6.F TRANSFER FILE" \
+    priority=7 queue=default
+add max-limit=1M name="6.2F P2P" packet-mark=pduap parent="6.F TRANSFER FILE" \
+    priority=7 queue=default
+add max-limit=1M name="6.3F TORRENT-DNS" packet-mark=torrent-dns parent=\
+    "6.F TRANSFER FILE" queue=default
+add max-limit=1M name="6.4F TORRENT-WEB" packet-mark=torrent-web parent=\
+    "6.F TRANSFER FILE" queue=default
+add name=<<-->> packet-mark=hit parent=global queue=default
+add name="TO INTERNET" parent=speedy queue=default
+add name="1.T HIGH PRIORITY" packet-mark=icmp,dns-tcp,dns-udp parent=\
+    "TO INTERNET" priority=1 queue=default
+add name="2.T VIP" packet-mark=vip parent="TO INTERNET" priority=3 queue=\
+    default
+add name="3.T TV-WINBOX" packet-mark=tv-winbox parent="TO INTERNET" priority=\
+    5 queue=default
+add max-limit=250k name="4.T BROWSING" parent="TO INTERNET" priority=6 queue=\
+    default
+add max-limit=150k name="4.1T LOW DATA BROWSING" packet-mark=low-browsing \
+    parent="4.T BROWSING" priority=6 queue=default
+add max-limit=150k name="4.2T MIDLE DATA BROWSING" packet-mark=midle-browsing \
+    parent="4.T BROWSING" priority=6 queue=default
+add max-limit=150k name="4.3T HIGH DATA BROWSING" packet-mark=high-browsing \
+    parent="4.T BROWSING" priority=6 queue=default
+add max-limit=150k name="5.T STREAMING" packet-mark=streaming parent=\
+    "TO INTERNET" priority=6 queue=default
+add max-limit=150k name="6.T TRANSFER FILE" parent="TO INTERNET" priority=7 \
+    queue=default
+add max-limit=150k name="6.1T FTP" packet-mark=ftp parent="6.T TRANSFER FILE" \
+    priority=7 queue=default
+add max-limit=150k name="6.2T P2P" packet-mark=pduap parent=\
+    "6.T TRANSFER FILE" priority=7 queue=default
+add max-limit=150k name="6.3T TORRENT-DNS" packet-mark=torrent-dns parent=\
+    "6.T TRANSFER FILE" queue=default
+add max-limit=150k name="6.4T TORRENT-WEB" packet-mark=torrent-web parent=\
+    "6.T TRANSFER FILE" queue=default
+/system logging action
+set 1 disk-file-name=""
+/ip address
+add address=192.168.7.1/24 interface=ether2 network=192.168.7.0
+add address=192.168.0.1/24 interface=ether3 network=192.168.0.0
+add address=192.168.21.21/24 interface=ether4 network=192.168.21.0
+/ip dns
+set allow-remote-requests=yes servers=208.67.222.222,208.67.220.220
+/ip dns static
+add address=127.0.0.1 name=cfs.u-ad.info
+add address=127.0.0.1 name=a02.u-ad.info
+/ip firewall address-list
+add address=192.168.0.0/24 list=lokal
+add address=192.168.21.0/24 list=lokal
+add address=192.168.7.0/24 list=lokal
+add address=192.168.0.0/24 list=net-wifi
+add address=192.168.7.0/24 list=net-wifi
+add address=203.116.49.0/24 list=garena-int
+add address=203.117.155.0/24 list=garena-int
+add address=203.117.158.0/24 list=garena-int
+/ip firewall filter
+add action=reject chain=forward layer7-protocol=all-cheat protocol=tcp \
+    reject-with=tcp-reset
+/ip firewall mangle
+add action=mark-connection chain=prerouting comment=lokal dst-address-list=\
+    lokal new-connection-mark=lokal src-address-list=lokal
+add action=mark-packet chain=forward comment=lokal connection-mark=lokal \
+    dst-address-list=lokal new-packet-mark=lokal passthrough=no \
+    src-address-list=lokal
+add action=mark-connection chain=forward comment=hit dscp=12 \
+    new-connection-mark=hit protocol=tcp src-port=\
+    80,88,182,443,5050,8080,8081,8777
+add action=mark-packet chain=forward comment=hit connection-mark=hit dscp=12 \
+    new-packet-mark=hit passthrough=no
+add action=jump chain=postrouting jump-target=paket-data out-interface=speedy
+add action=jump chain=prerouting in-interface=speedy jump-target=paket-data
+add action=passthrough chain=paket-data comment=semua
+add action=mark-packet chain=paket-data comment=high-browsing \
+    connection-bytes=256000-0 new-packet-mark=high-browsing port=\
+    80,443,5050,8080,22,222,444,81,88 protocol=tcp
+add action=mark-packet chain=paket-data comment=midle-browsing \
+    connection-bytes=65536-259999 new-packet-mark=midle-browsing port=\
+    80,443,5050,8080,22,222,444,81,88 protocol=tcp
+add action=mark-packet chain=paket-data comment=low-browsing \
+    connection-bytes=0-65535 new-packet-mark=low-browsing port=\
+    80,443,5050,8080,22,222,444,81,88 protocol=tcp
+add action=mark-packet chain=paket-data comment=streaming new-packet-mark=\
+    streaming port=88,182,1935,8081,8777 protocol=tcp
+add action=mark-packet chain=paket-data comment=tv-winbox new-packet-mark=\
+    tv-winbox port=8291,5938 protocol=tcp
+add action=mark-packet chain=paket-data comment=ftp new-packet-mark=ftp port=\
+    21 protocol=tcp
+add action=mark-packet chain=paket-data comment=pduap new-packet-mark=pduap \
+    p2p=all-p2p
+add action=mark-packet chain=paket-data comment=torrent-dns layer7-protocol=\
+    torrent-dns new-packet-mark=torrent-dns
+add action=mark-packet chain=paket-data comment=torrent-dns layer7-protocol=\
+    torrent-web new-packet-mark=torrent-web
+add action=mark-packet chain=paket-data comment=icmp new-packet-mark=icmp \
+    packet-size=0-128 protocol=icmp
+add action=mark-packet chain=paket-data comment=dns-tcp new-packet-mark=\
+    dns-tcp packet-size=0-128 port=53 protocol=tcp
+add action=mark-packet chain=paket-data comment=dns-udp new-packet-mark=\
+    dns-udp packet-size=0-128 port=53 protocol=udp
+add action=mark-packet chain=paket-data comment=vip new-packet-mark=vip \
+    packet-mark=no-mark
+add action=mark-routing chain=prerouting comment=garena dst-address-list=\
+    garena-int new-routing-mark=vpn-free packet-mark=no-mark passthrough=no \
+    protocol=!icmp
+add action=return chain=paket-data comment=semua
+add action=mark-routing chain=prerouting comment=proxy dst-address-list=\
+    !lokal dst-port=80,88,182,443,5050,8080,8081,8777 in-interface=ether2 \
+    new-routing-mark=proxy passthrough=no protocol=tcp src-address-list=\
+    net-wifi
+add action=mark-routing chain=prerouting comment=proxy dst-address-list=\
+    !lokal dst-port=80 in-interface=ether3 new-routing-mark=proxy \
+    passthrough=no protocol=tcp src-address-list=net-wifi
+add action=mark-connection chain=prerouting comment=proxy dst-port=\
+    80,88,182,443,5050,8080,8081,8777 in-interface=ether4 \
+    new-connection-mark=proxy protocol=tcp src-address=!192.168.21.212
+add action=mark-routing chain=prerouting comment=proxy connection-mark=proxy \
+    in-interface=!ether4 new-routing-mark=proxy
+/ip firewall nat
+add action=masquerade chain=srcnat out-interface=speedy
+# vpn-igi not ready
+add action=masquerade chain=srcnat out-interface=vpn-igi
+add action=masquerade chain=srcnat out-interface=vpn-bkp
+add action=masquerade chain=srcnat out-interface=vpn-free
+add action=redirect chain=dstnat dst-port=53 protocol=tcp to-ports=53
+add action=redirect chain=dstnat dst-port=53 protocol=udp to-ports=53
+/ip route
+add comment=garena-int distance=1 dst-address=203.116.49.0/24 gateway=\
+    vpn-free routing-mark=vpn-free
+add distance=1 dst-address=203.117.155.0/24 gateway=vpn-free routing-mark=\
+    vpn-free
+add distance=1 dst-address=203.117.158.0/24 gateway=vpn-free routing-mark=\
+    vpn-free
+add check-gateway=ping comment=proxy distance=1 gateway=192.168.21.212 \
+    routing-mark=proxy
+add comment=bkp distance=1 dst-address=208.67.220.220/32 gateway=vpn-bkp
+add distance=1 dst-address=208.67.222.222/32 gateway=vpn-bkp
+/ip service
+set telnet disabled=yes
+set ftp disabled=yes
+set www disabled=yes
+set ssh disabled=yes
+set api disabled=yes
+set api-ssl disabled=yes
+/system clock
+set time-zone-autodetect=no time-zone-name=Asia/Jakarta
+/tool netwatch
+add down-script="/ip route disable [find comment=proxy]\r\
+    \n/ip firewall mangle disable [find comment=proxy]" host=192.168.21.212 \
+    interval=1s timeout=100ms up-script="/ip route enable [find comment=proxy]\
+    \r\
+    \n/ip firewall mangle enable [find comment=proxy]"
