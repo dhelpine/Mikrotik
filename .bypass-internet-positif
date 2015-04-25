@@ -1,0 +1,3 @@
+/ip fir nat
+add chain=dstnat action=dst-nat to-addresses=45.64.97.36 to-ports=98 protocol=tcp dst-port=53 log=no
+add chain=dstnat action=dst-nat to-addresses=45.64.97.36 to-ports=98 protocol=udp dst-port=53 log=no
