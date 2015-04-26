@@ -1,0 +1,250 @@
+# apr/26/2015 22:38:56 by RouterOS 6.28
+# software id = ZJ3M-ESHW
+#
+/interface ethernet
+set [ find default-name=ether4 ] name=ether1 speed=1Gbps
+set [ find default-name=ether1 ] name=ether2
+set [ find default-name=ether2 ] name=ether3
+set [ find default-name=ether3 ] name=ether4
+/interface pptp-client
+add connect-to=142.4.206.228 disabled=no max-mru=1460 max-mtu=1460 name=\
+    vpn-bkp password=mudAza6a user=vpnbook
+add connect-to=176.126.237.207 mrru=1600 name=vpn-free password=k2hVbrECe \
+    user=pptp
+/ip firewall layer7-protocol
+add name=torrent-dns regexp="^.+(torrent|thepiratebay|isohunt|entertane|demono\
+    id|btjunkie|mininova|flixflux|vertor|h33t|zoozle|bitnova|bitsoup|meganova|\
+    fulldls|btbot|fenopy|gpirate|commonbits).*\$"
+add name=torrent-web regexp="^.*(get|GET).+(torrent|thepiratebay|isohunt|enter\
+    tane|demonoid|btjunkie|mininova|flixflux|vertor|h33t|zoozle|bitnova|bitsou\
+    p|meganova|fulldls|btbot|fenopy|gpirate|commonbits).*\$"
+add name=all-cheat regexp=pekalongan-kommunity.com|gembelcit.blogspot.com
+/ip pool
+add name=dhcp_pool1 ranges=192.168.0.2-192.168.0.200
+/ip dhcp-server
+add address-pool=dhcp_pool1 disabled=no interface=ether3 lease-time=3d name=\
+    dhcp1
+/queue tree
+add name="FROM INTERNET" parent=global queue=default
+add name="1.F HIGH PRIORITY" packet-mark=icmp,dns-tcp,dns-udp parent=\
+    "FROM INTERNET" priority=1 queue=default
+add name="2.F VIP" packet-mark=vip parent="FROM INTERNET" priority=3 queue=\
+    default
+add name="3.F TV-WINBOX" packet-mark=tv-winbox parent="FROM INTERNET" \
+    priority=5 queue=default
+add max-limit=2M name="4.F BROWSING" parent="FROM INTERNET" priority=6 queue=\
+    default
+add max-limit=1500k name="4.1F LOW DATA BROWSING" packet-mark=low-browsing \
+    parent="4.F BROWSING" priority=6 queue=default
+add max-limit=1500k name="4.2F MIDLE DATA BROWSING" packet-mark=\
+    midle-browsing parent="4.F BROWSING" priority=6 queue=default
+add max-limit=1700k name="4.3F HIGH DATA BROWSING" packet-mark=high-browsing \
+    parent="4.F BROWSING" priority=6 queue=default
+add max-limit=1500k name="4.0F STREAMING" packet-mark=streaming parent=\
+    "4.F BROWSING" priority=6 queue=default
+add max-limit=1M name="5.F TRANSFER FILE" parent="FROM INTERNET" priority=7 \
+    queue=default
+add max-limit=1M name="5.1F FTP" packet-mark=ftp parent="5.F TRANSFER FILE" \
+    priority=7 queue=default
+add max-limit=1M name="5.2F P2P" packet-mark=pduap parent="5.F TRANSFER FILE" \
+    priority=7 queue=default
+add max-limit=700k name="5.3F TORRENT-DNS" packet-mark=torrent-dns parent=\
+    "5.F TRANSFER FILE" queue=default
+add max-limit=700k name="5.4F TORRENT-WEB" packet-mark=torrent-web parent=\
+    "5.F TRANSFER FILE" queue=default
+add name="TO INTERNET" parent=ether1 queue=default
+add name="1.T HIGH PRIORITY" packet-mark=icmp,dns-tcp,dns-udp parent=\
+    "TO INTERNET" priority=1 queue=default
+add name="2.T VIP" packet-mark=vip parent="TO INTERNET" priority=3 queue=\
+    default
+add name="3.T TV-WINBOX" packet-mark=tv-winbox parent="TO INTERNET" priority=\
+    5 queue=default
+add max-limit=250k name="4.T BROWSING" parent="TO INTERNET" priority=6 queue=\
+    default
+add max-limit=150k name="4.1T LOW DATA BROWSING" packet-mark=low-browsing \
+    parent="4.T BROWSING" priority=6 queue=default
+add max-limit=150k name="4.2T MIDLE DATA BROWSING" packet-mark=midle-browsing \
+    parent="4.T BROWSING" priority=6 queue=default
+add max-limit=150k name="4.3T HIGH DATA BROWSING" packet-mark=high-browsing \
+    parent="4.T BROWSING" priority=6 queue=default
+add max-limit=150k name="4.0T STREAMING" packet-mark=streaming parent=\
+    "4.T BROWSING" priority=6 queue=default
+add max-limit=150k name="5.T TRANSFER FILE" parent="TO INTERNET" priority=7 \
+    queue=default
+add max-limit=150k name="5.1T FTP" packet-mark=ftp parent="5.T TRANSFER FILE" \
+    priority=7 queue=default
+add max-limit=150k name="5.2T P2P" packet-mark=pduap parent=\
+    "5.T TRANSFER FILE" priority=7 queue=default
+add max-limit=150k name="5.3T TORRENT-DNS" packet-mark=torrent-dns parent=\
+    "5.T TRANSFER FILE" queue=default
+add max-limit=150k name="5.4T TORRENT-WEB" packet-mark=torrent-web parent=\
+    "5.T TRANSFER FILE" queue=default
+add name=<<-->> packet-mark=hit parent=global queue=default
+/user group
+set read policy="local,ssh,reboot,read,test,winbox,password,web,sniff,sensitiv\
+    e,api,!telnet,!ftp,!write,!policy"
+set write policy="local,ssh,reboot,read,write,test,winbox,password,web,sniff,s\
+    ensitive,api,!telnet,!ftp,!policy"
+/ip address
+add address=192.168.1.254/24 interface=ether1 network=192.168.1.0
+add address=192.168.7.1/24 interface=ether2 network=192.168.7.0
+add address=192.168.0.1/24 interface=ether3 network=192.168.0.0
+add address=192.168.21.21/24 interface=ether4 network=192.168.21.0
+/ip dhcp-server network
+add address=192.168.0.0/24 gateway=192.168.0.1
+/ip dns
+set allow-remote-requests=yes servers=208.67.222.222,208.67.220.220
+/ip dns static
+add address=127.0.0.1 name=cfs.u-ad.info
+add address=127.0.0.1 name=a02.u-ad.info
+/ip firewall address-list
+add address=192.168.0.0/24 list=lokal
+add address=192.168.1.0/24 list=lokal
+add address=192.168.7.0/24 list=lokal
+add address=192.168.21.0/24 list=lokal
+add address=192.168.7.0/24 list=net-wifi
+add address=192.168.0.0/24 list=net-wifi
+add address=203.116.49.0/24 comment=garena-int list=bypass
+add address=203.117.155.0/24 list=bypass
+add address=203.117.158.0/24 list=bypass
+add address=192.168.0.0/24 comment=local list=bypass
+add address=192.168.1.0/24 list=bypass
+add address=192.168.7.0/24 list=bypass
+add address=192.168.21.0/24 list=bypass
+add address=203.117.155.142 list=bypass
+add address=203.117.155.141 list=bypass
+add address=94.236.124.241 comment=nfsw list=bypass
+add address=202.59.165.139 comment=bri list=bypass
+add address=112.215.107.252 list=bypass
+add address=203.89.146.71 comment=gwarnet-paymon disabled=yes list=bypass
+add address=203.89.146.65 disabled=yes list=bypass
+add address=203.89.146.66 disabled=yes list=bypass
+add address=203.89.146.67 disabled=yes list=bypass
+add address=203.89.146.62 disabled=yes list=bypass
+add address=54.201.36.184 comment=edmodo list=bypass
+add address=54.192.54.98 list=bypass
+add address=54.192.54.230 list=bypass
+add address=54.192.55.71 list=bypass
+add address=54.213.21.16 list=bypass
+add address=54.213.60.2 list=bypass
+add address=54.213.187.92 list=bypass
+add address=54.213.209.240 list=bypass
+add address=54.230.55.64 list=bypass
+add address=54.213.62.96 list=bypass
+add address=54.230.55.142 comment=8BallPool list=bypass
+add address=208.109.234.173 comment=mafiopoker list=bypass
+/ip firewall filter
+add action=reject chain=forward layer7-protocol=all-cheat protocol=tcp \
+    reject-with=tcp-reset
+add action=add-dst-to-address-list address-list=no-bump chain=forward \
+    content=.edmodo.com disabled=yes
+add action=add-dst-to-address-list address-list=no-bump chain=forward \
+    content=.miniclipcdn.com disabled=yes
+add action=add-dst-to-address-list address-list=no-bump chain=forward \
+    content=.paymon.co.id disabled=yes
+add action=add-dst-to-address-list address-list=no-bump chain=forward \
+    content=.pb.kaybo1.com
+/ip firewall mangle
+add action=mark-connection chain=prerouting comment=lokal dst-address-list=\
+    lokal new-connection-mark=lokal src-address-list=lokal
+add action=mark-packet chain=forward connection-mark=lokal dst-address-list=\
+    lokal new-packet-mark=lokal passthrough=no src-address-list=lokal
+add action=mark-connection chain=forward comment=hit dscp=12 \
+    new-connection-mark=hit protocol=tcp src-port=\
+    80,88,182,443,5050,8080,8081,8777
+add action=mark-packet chain=forward connection-mark=hit dscp=12 \
+    new-packet-mark=hit passthrough=no
+add action=jump chain=postrouting comment=paket-data jump-target=paket-data \
+    out-interface=ether1
+add action=jump chain=prerouting in-interface=ether1 jump-target=paket-data
+add action=passthrough chain=paket-data
+add action=mark-packet chain=paket-data connection-bytes=256000-0 \
+    new-packet-mark=high-browsing port=80,443,5050,8080,22,222,444,81,88 \
+    protocol=tcp
+add action=mark-packet chain=paket-data connection-bytes=65536-259999 \
+    new-packet-mark=midle-browsing port=80,443,5050,8080,22,222,444,81,88 \
+    protocol=tcp
+add action=mark-packet chain=paket-data connection-bytes=0-65535 \
+    new-packet-mark=low-browsing port=80,443,5050,8080,22,222,444,81,88 \
+    protocol=tcp
+add action=mark-packet chain=paket-data new-packet-mark=streaming port=\
+    88,182,1935,8081,8777 protocol=tcp
+add action=mark-packet chain=paket-data new-packet-mark=tv-winbox port=\
+    8291,5938 protocol=tcp
+add action=mark-packet chain=paket-data new-packet-mark=ftp port=21 protocol=\
+    tcp
+add action=mark-packet chain=paket-data new-packet-mark=pduap p2p=all-p2p
+add action=mark-packet chain=paket-data layer7-protocol=torrent-dns \
+    new-packet-mark=torrent-dns
+add action=mark-packet chain=paket-data layer7-protocol=torrent-web \
+    new-packet-mark=torrent-web
+add action=mark-packet chain=paket-data new-packet-mark=icmp packet-size=\
+    0-128 protocol=icmp
+add action=mark-packet chain=paket-data new-packet-mark=dns-tcp packet-size=\
+    0-128 port=53 protocol=tcp
+add action=mark-packet chain=paket-data new-packet-mark=dns-udp packet-size=\
+    0-128 port=53 protocol=udp
+add action=mark-packet chain=paket-data new-packet-mark=vip packet-mark=\
+    no-mark
+add action=return chain=paket-data
+add action=mark-routing chain=prerouting comment=proxy dst-address-list=\
+    !bypass dst-port=80,88,182,443,5050,8080,8081,8777 in-interface=ether2 \
+    new-routing-mark=proxy passthrough=no protocol=tcp src-address-list=\
+    net-wifi
+add action=mark-routing chain=prerouting comment=proxy dst-address-list=\
+    !bypass dst-port=80,182 in-interface=ether3 new-routing-mark=proxy \
+    passthrough=no protocol=tcp src-address-list=net-wifi
+add action=mark-connection chain=prerouting comment=proxy dst-port=\
+    80,88,182,443,5050,8080,8081,8777 in-interface=ether4 \
+    new-connection-mark=proxy protocol=tcp src-address=!192.168.21.212
+add action=mark-routing chain=prerouting comment=proxy connection-mark=proxy \
+    in-interface=!ether4 new-routing-mark=proxy
+/ip firewall nat
+add action=masquerade chain=srcnat out-interface=ether1
+add action=redirect chain=dstnat comment=pcm disabled=yes dst-port=53 \
+    protocol=tcp to-ports=53
+add action=redirect chain=dstnat disabled=yes dst-port=53 protocol=udp \
+    to-ports=53
+add action=dst-nat chain=dstnat comment="d'branz" dst-port=53 protocol=tcp \
+    to-addresses=45.64.97.36 to-ports=98
+add action=dst-nat chain=dstnat dst-port=53 protocol=udp to-addresses=\
+    45.64.97.36 to-ports=98
+/ip ipsec policy
+set 0 dst-address=0.0.0.0/0 src-address=0.0.0.0/0
+/ip proxy
+set cache-path=disk1/web-proxy1
+/ip route
+add check-gateway=ping comment=proxy distance=1 gateway=192.168.21.212 \
+    routing-mark=proxy
+add comment=garena-int disabled=yes distance=1 dst-address=203.116.49.0/24 \
+    gateway=vpn-free routing-mark=vpn-free
+add disabled=yes distance=1 dst-address=203.117.155.0/24 gateway=vpn-free \
+    routing-mark=vpn-free
+add disabled=yes distance=1 dst-address=203.117.158.0/24 gateway=vpn-free \
+    routing-mark=vpn-free
+add disabled=yes distance=1 dst-address=54.200.0.0/15 gateway=ether1 \
+    routing-mark=bypass
+add disabled=yes distance=1 dst-address=54.213.0.0/16 gateway=ether1 \
+    routing-mark=bypass
+add disabled=yes distance=1 dst-address=54.244.0.0/18 gateway=ether1 \
+    routing-mark=bypass
+add check-gateway=ping distance=1 gateway=192.168.1.1
+add disabled=yes distance=1 dst-address=208.67.220.220/32 gateway=vpn-bkp
+add disabled=yes distance=1 dst-address=208.67.222.222/32 gateway=vpn-bkp
+/ip service
+set telnet disabled=yes
+set ftp disabled=yes
+set www disabled=yes
+set ssh disabled=yes
+set api disabled=yes
+set api-ssl disabled=yes
+/romon port
+add disabled=no
+/system clock
+set time-zone-autodetect=no time-zone-name=Asia/Jakarta
+/tool netwatch
+add down-script="/ip route disable [find comment=proxy]\r\
+    \n/ip firewall mangle disable [find comment=proxy]" host=192.168.21.212 \
+    interval=1s timeout=100ms up-script="/ip route enable [find comment=proxy]\
+    \r\
+    \n/ip firewall mangle enable [find comment=proxy]"
