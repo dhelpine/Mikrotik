@@ -7,13 +7,13 @@ ip address game online :
 port tcp = !21,22,23,80,81,88,5050,843,443,182,8777,8081,1935,8000-8081
 port udp = !80,81,88,8080,5050,8001,843,443
 /ip firewall address-list
-add address=216.240.136.162 comment="Lowerping - US West - Panther 1" list=games
-add address=216.240.136.167 comment="Lowerping - US West - Panther 6" list=games
-add address=94.75.208.164 comment="Lowerping - Europe - Netherlands 1" list=games
-add address=62.212.91.21 comment="Lowerping - Europe - Netherlands 2" list=games
-add address=206.127.144.0/20 comment="GW2 - ArenaNet (NC Interactive)" list=games
-add address=12.129.193.0/24 comment=WoW list=games
-add address=12.129.222.0/23 comment=WoW list=games
+add address=216.240.136.162 comment="Lowerping - US West - Panther 1" list=bypass
+add address=216.240.136.167 comment="Lowerping - US West - Panther 6" list=bypass
+add address=94.75.208.164 comment="Lowerping - Europe - Netherlands 1" list=bypass
+add address=62.212.91.21 comment="Lowerping - Europe - Netherlands 2" list=bypass
+add address=206.127.144.0/20 comment="GW2 - ArenaNet (NC Interactive)" list=bypass
+add address=12.129.193.0/24 comment=WoW list=bypass
+add address=12.129.222.0/23 comment=WoW list=bypass
 add address=12.129.225.0/24 comment=WoW list=games
 add address=12.129.228.0/24 comment=WoW list=games
 add address=12.129.233.0/24 comment=WoW list=games
@@ -116,14 +116,14 @@ add address=46.21.207.116 comment="Lowerping - Europe - Paris 2" list=games
 add address=159.153.0.0/16 comment="SWTOR - USA/EUROPE" list=games
 add address=64.25.32.0/20 comment="GW2 - ArenaNet (NC Interactive)" list=games
 add address=206.82.192.0/19 comment=seal-online list=games
-add address=203.116.0.0/16 comment=garena-int list=games
-add address=203.117.0.0/16 comment=garena-int list=games
-add address=203.118.0.0/18 comment=garena-int list=games
-add address=112.121.148.0/24 comment=garena-int list=games
-add address=112.121.144.0/20 comment=garena-int list=games
-add address=112.121.128.0/19 comment=garena-int list=games
-add address=125.5.12.0/24 comment=garena-int list=games
-add address=111.223.32.0/20 comment=garena-int list=games
+add address=203.116.0.0/16 comment=garena-int list=bypass
+add address=203.117.0.0/16 comment=garena-int list=bypass
+add address=203.118.0.0/18 comment=garena-int list=bypass
+add address=112.121.148.0/24 comment=garena-int list=bypass
+add address=112.121.144.0/20 comment=garena-int list=bypass
+add address=112.121.128.0/19 comment=garena-int list=bypass
+add address=125.5.12.0/24 comment=garena-int list=bypass
+add address=111.223.32.0/20 comment=garena-int list=bypass
 add address=45.121.184.0/23 comment=valve list=games
 add address=203.89.146.0/23 comment=gemscool.co.id list=games
 add address=122.102.52.0/24 comment=megaxus.com list=games
