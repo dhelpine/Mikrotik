@@ -1,0 +1,78 @@
+http_port 192.168.21.212:3128 tproxy
+https_port 192.168.21.212:3129 tproxy ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=40MB cert=/etc/squid/certs/squid.pem key=/etc/squid/certs/squid.key sslflags=DELAYED_AUTH cipher=ECDHE-RSA-RC4-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA:DHE-RSA-CAMELLIA128-SHA:AES128-SHA:RC4-SHA:HIGH:!aNULL:!MD5:!ADH
+
+acl ytHack url_regex -i \/pagead\/js\/lidar\.js
+acl ytHack url_regex -i google\.com\/js\/bg\/.*\.js
+deny_info http://pastebin.com/raw.php?i=ZKczrn1C ytHack
+http_access deny ytHack
+
+acl crome url_regex -i ^http:\/\/.*\.pack.google.com\/edgedl\/chrome\/win\/.*
+acl crome url_regex -i ^http:\/\/cache.pack.google.com\/edgedl\/.*
+acl crome url_regex -i ^http:\/\/www.google.com\/dl\/chrome\/win\/.*
+http_access deny crome
+
+reload_into_ims on
+refresh_all_ims on
+
+maximum_object_size_in_memory 0 KB
+
+strip_query_terms off
+
+cache_swap_high 99
+cache_swap_low 98
+
+ipcache_size 1024
+ipcache_high 95
+ipcache_low 90
+
+qos_flows local-hit=0x30
+
+dns_nameservers 208.67.222.222 208.67.220.220
+
+acl spliceserver ssl::server_name "/etc/squid/splicesaja.txt"
+
+acl step1 at_step SslBump1
+acl step2 at_step SslBump2
+acl step3 at_step SslBump3
+
+quick_abort_min 0 KB
+quick_abort_max 0 KB
+quick_abort_pct 100
+
+always_direct allow all
+ssl_bump splice localhost
+ssl_bump splice step1 spliceserver
+ssl_bump splice step2 spliceserver
+ssl_bump splice step3 spliceserver
+ssl_bump peek step1 all
+ssl_bump stare step2 all
+ssl_bump splice step3 all
+sslproxy_capath /etc/ssl/certs
+sslproxy_cert_error allow all
+sslproxy_flags DONT_VERIFY_PEER
+sslcrtd_program /usr/lib/squid/ssl_crtd -s /var/ipfire/ssl_db -M 40MB
+sslcrtd_children 50 startup=50 idle=1 
+
+acl semuaurl url_regex -i ^https?\:\/\/.*
+acl http302 http_status 302
+acl mimetext rep_mime_type mime-type ^text/html
+acl mimetext rep_mime_type mime-type ^text/plain
+acl getmethod method GET
+
+cache deny localhost
+
+store_id_program /etc/squid/storeid.pl
+store_id_children 50 startup=50
+store_id_access deny !getmethod
+store_id_access allow semuaurl
+store_id_access deny all
+
+store_miss deny semuaurl http302
+send_hit deny semuaurl http302
+store_miss deny mimetext
+send_hit deny mimetext
+
+refresh_pattern -i ^https?\:\/\/pc-mikrotik\/youtube\/.* 432000 100% 432000 override-expire override-lastmod ignore-reload ignore-no-store ignore-private ignore-auth ignore-must-revalidate store-stale reload-into-ims refresh-ims
+refresh_pattern . 0 95% 432000 override-expire override-lastmod refresh-ims reload-into-ims ignore-no-store ignore-private ignore-auth ignore-must-revalidate
+
+max_stale 360 days
