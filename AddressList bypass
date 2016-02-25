@@ -1,0 +1,238 @@
+/ip firewall address-list
+add address=216.240.136.162 comment="Lowerping - US West - Panther 1" list=games
+add address=216.240.136.167 comment="Lowerping - US West - Panther 6" list=games
+add address=94.75.208.164 comment="Lowerping - Europe - Netherlands 1" list=games
+add address=62.212.91.21 comment="Lowerping - Europe - Netherlands 2" list=games
+add address=206.127.144.0/20 comment="GW2 - ArenaNet (NC Interactive)" list=games
+add address=12.129.193.0/24 comment=WoW list=games
+add address=12.129.222.0/23 comment=WoW list=games
+add address=12.129.225.0/24 comment=WoW list=games
+add address=12.129.228.0/24 comment=WoW list=games
+add address=12.129.233.0/24 comment=WoW list=games
+add address=12.129.252.0/23 comment=WoW list=games
+add address=63.241.255.0/24 comment=WoW list=games
+add address=72.5.213.0/24 comment=WoW list=games
+add address=80.239.149.0/24 comment=WoW list=games
+add address=80.239.179.0/24 comment=WoW list=games
+add address=80.239.181.0/24 comment=WoW list=games
+add address=80.239.185.0/24 comment=WoW list=games
+add address=80.239.233.0/24 comment=WoW list=games
+add address=192.12.244.0/24 comment=WoW list=games
+add address=195.12.246.0/24 comment=WoW list=games
+add address=199.107.6.0/23 comment=WoW list=games
+add address=199.107.24.0/23 comment=WoW list=games
+add address=206.16.118.0/23 comment=WoW list=games
+add address=206.16.147.0/24 comment=WoW list=games
+add address=206.18.148.0/23 comment=WoW list=games
+add address=206.18.98.0/23 comment=WoW list=games
+add address=206.16.235.0/24 comment=WoW list=games
+add address=206.17.111.0/24 comment=WoW list=games
+add address=213.248.123.0/24 comment=WoW list=games
+add address=213.248.127.0/24 comment=WoW list=games
+add address=202.9.66.0/23 comment=SC2 list=games
+add address=12.129.254.0/23 comment=SC2 list=games
+add address=12.129.206.0/24 comment=SC2 list=games
+add address=12.129.242.0/24 comment="Diablo III" list=games
+add address=12.130.245.0/24 comment="Diablo III" list=games
+add address=12.130.244.0/24 comment="Diablo III" list=games
+add address=12.130.246.0/24 comment="Diablo III" list=games
+add address=63.150.138.0/24 comment="Dota 2" list=games
+add address=103.10.124.0/24 comment="Dota 2" list=games
+add address=103.10.125.0/24 comment="Dota 2" list=games
+add address=103.28.54.0/23 comment="Dota 2" list=games
+add address=146.66.152.0/23 comment="Dota 2" list=games
+add address=146.66.154.0/24 comment="Dota 2" list=games
+add address=146.66.155.0/24 comment="Dota 2" list=games
+add address=146.66.156.0/23 comment="Dota 2" list=games
+add address=146.66.158.0/23 comment="Dota 2" list=games
+add address=185.25.180.0/23 comment="Dota 2" list=games
+add address=185.25.182.0/24 comment="Dota 2" list=games
+add address=192.69.96.0/22 comment="Dota 2" list=games
+add address=205.196.6.0/24 comment="Dota 2" list=games
+add address=208.64.200.0/24 comment="Dota 2" list=games
+add address=208.64.201.0/24 comment="Dota 2" list=games
+add address=208.64.202.0/24 comment="Dota 2" list=games
+add address=208.64.203.0/24 comment="Dota 2" list=games
+add address=208.78.164.0/22 comment="Dota 2" list=games
+add address=216.111.123.0/24 comment="Dota 2" list=games
+add address=31.186.224.0/24 comment="LoL Europe" list=games
+add address=31.186.226.0/24 comment="LoL Europe" list=games
+add address=64.7.194.0/24 comment="LoL Europe" list=games
+add address=95.172.65.0/24 comment="LoL Europe" list=games
+add address=95.172.70.0/24 comment="LoL Europe" list=games
+add address=66.150.148.0/24 comment="LoL EU-NE" list=games
+add address=192.64.168.0/24 comment="LoL NA" list=games
+add address=192.64.169.0/24 comment="LoL NA" list=games
+add address=192.64.170.0/24 comment="LoL NA" list=games
+add address=216.133.234.0/24 comment="LoL NA" list=games
+add address=59.100.95.128/25 comment="LoL Oceania" list=games
+add address=216.240.145.9 comment="Lowerping - US West - Panther 2" list=games
+add address=64.69.36.224 comment="Lowerping - US West - Panther 3" list=games
+add address=208.70.75.171 comment="Lowerping - US West - Panther 4" list=games
+add address=208.70.78.93 comment="Lowerping - US West - Panther 5" list=games
+add address=64.56.65.9 comment="Lowerping - US West - Tiger 1" list=games
+add address=74.222.8.249 comment="Lowerping - US West - Tiger 2" list=games
+add address=216.18.198.2 comment="Lowerping - US West - Fox 1" list=games
+add address=173.231.26.242 comment="Lowerping - US West - Fox 2" list=games
+add address=66.212.28.128 comment="Lowerping - US West - Lion A1" list=games
+add address=66.63.191.237 comment="Lowerping - US West - Lion A2" list=games
+add address=72.11.142.216 comment="Lowerping - US West - Lion B1" list=games
+add address=72.11.142.217 comment="Lowerping - US West - Lion B2" list=games
+add address=96.44.172.186 comment="Lowerping - US West - Lion C1" list=games
+add address=96.44.177.26 comment="Lowerping - US West - Lion C2" list=games
+add address=96.44.177.27 comment="Lowerping - US West - Lion D1" list=games
+add address=72.11.142.218 comment="Lowerping - US West - Lion D2" list=games
+add address=64.120.10.178 comment="Lowerping - US West - Panda 1" list=games
+add address=72.51.46.93 comment="Lowerping - US West - Rhino 1" list=games
+add address=173.245.68.180 comment="Lowerping - US West - Squid 1" list=games
+add address=173.245.68.178 comment="Lowerping - US West - Squid 2" list=games
+add address=8.17.252.162 comment="Lowerping - US West - Koala 1" list=games
+add address=8.17.252.163 comment="Lowerping - US West - Koala 2" list=games
+add address=50.23.65.37 comment="Lowerping - US West - Salmon 1" list=games
+add address=174.127.96.124 comment="Lowerping - US West - Salmon 2" list=games
+add address=174.127.96.127 comment="Lowerping - US West - Salmon 3" list=games
+add address=66.109.20.100 comment="Lowerping - US East - Cobra 1" list=games
+add address=66.199.235.194 comment="Lowerping - US East - Otter 1" list=games
+add address=72.9.100.90 comment="Lowerping - US East - Otter 2" list=games
+add address=173.208.45.82 comment="Lowerping - US East - Spider 1" list=games
+add address=69.162.127.98 comment="Lowerping - US Central - Frog 1" list=games
+add address=174.133.108.202 comment="Lowerping - US Central - Tadpole 1" list=games
+add address=174.34.132.50 comment="Lowerping - US Central - Toad 1" list=games
+add address=70.32.43.122 comment="Lowerping - Chicago - Macaw 1" list=games
+add address=184.154.38.138 comment="Lowerping - Chicago - Jaguar 1" list=games
+add address=78.129.220.51 comment="Lowerping - Europe - London 1" list=games
+add address=188.138.24.38 comment="Lowerping - Europe - Germany 1" list=games
+add address=85.10.193.111 comment="Lowerping - Europe - Germany 3" list=games
+add address=91.191.144.94 comment="Lowerping - Europe - Paris 1" list=games
+add address=46.21.207.116 comment="Lowerping - Europe - Paris 2" list=games
+add address=159.153.0.0/16 comment="SWTOR - USA/EUROPE" list=games
+add address=64.25.32.0/20 comment="GW2 - ArenaNet (NC Interactive)" list=games
+add address=206.82.192.0/19 comment=seal-online list=games
+add address=203.116.0.0/16 comment=garena-int list=games
+add address=203.117.0.0/16 comment=garena-int list=games
+add address=203.118.0.0/18 comment=garena-int list=games
+add address=112.121.148.0/24 comment=garena-int list=games
+add address=112.121.144.0/20 comment=garena-int list=games
+add address=112.121.128.0/19 comment=garena-int list=games
+add address=125.5.12.0/24 comment=garena-int list=games
+add address=111.223.32.0/20 comment=garena-int list=games
+add address=45.121.184.0/23 comment=valve list=games
+add address=203.89.146.0/23 comment=gemscool.co.id list=games
+add address=122.102.52.0/24 comment=megaxus.com list=games
+add address=182.16.248.0/22 comment=netmarble.co.id list=games
+add address=202.93.16.0/20 comment=lytogame.com list=games
+add address=122.11.128.0/18 comment=garena.co.id list=games
+add address=103.248.57.0/24 comment=garena.co.id list=games
+add address=202.73.20.0/24 comment=garena.co.id list=games
+add address=203.117.0.0/16 comment=garena.co.id list=games
+add address=43.252.187.0/24 comment=garena.co.id list=games
+add address=43.252.184.0/24 comment=garena.co.id list=games
+add address=43.252.185.0/24 comment=garena.co.id list=games
+add address=43.252.186.0/24 comment=garena.co.id list=games
+add address=103.248.56.0/24 comment=garena.co.id list=games
+add address=103.248.58.0/24 comment=garena.co.id list=games
+add address=103.248.59.0/24 comment=garena.co.id list=games
+add address=202.73.16.0/24 comment=garena.co.id list=games
+add address=202.73.17.0/24 comment=garena.co.id list=games
+add address=202.73.18.0/24 comment=garena.co.id list=games
+add address=202.73.19.0/24 comment=garena.co.id list=games
+add address=202.73.21.0/24 comment=garena.co.id list=games
+add address=202.73.22.0/24 comment=garena.co.id list=games
+add address=202.73.23.0/24 comment=garena.co.id list=games
+add address=122.102.53.0/24 comment=megaxus.com list=games
+add address=122.102.54.0/24 comment=megaxus.com list=games
+add address=122.102.48.0/24 comment=megaxus.com list=games
+add address=122.102.49.0/24 comment=megaxus.com list=games
+add address=122.102.50.0/24 comment=megaxus.com list=games
+add address=122.102.51.0/24 comment=megaxus.com list=games
+add address=49.50.4.0/22 comment=pt.kreon list=games
+add address=103.18.34.0/23 comment="gstation indonesia" list=games
+add address=103.31.110.0/23 comment="gstation indonesia" list=games
+add address=103.247.244.0/23 comment=netmarble.co.id list=games
+add address=103.249.58.0/23 comment=netmarble.co.id list=games
+add address=103.253.106.0/23 comment=netmarble.co.id list=games
+add address=103.254.126.0/23 comment=netmarble.co.id list=games
+add address=182.16.240.0/22 comment=interlink list=games
+add address=182.16.244.0/22 comment=interlink list=games
+add address=182.16.252.0/22 comment=interlink list=games
+add address=202.12.75.0/24 comment=interlink list=games
+add address=202.43.72.0/23 comment=interlink list=games
+add address=202.43.74.0/23 comment=interlink list=games
+add address=202.70.134.0/23 comment=interlink list=games
+add address=203.171.221.0/24 comment=interlink list=games
+add address=203.209.190.0/24 comment=interlink list=games
+add address=45.121.186.0/23 comment=valve list=games
+add address=153.254.86.0/24 comment=valve list=games
+add address=155.133.240.0/23 comment=valve list=games
+add address=155.133.242.0/23 comment=valve list=games
+add address=155.133.244.0/24 comment=valve list=games
+add address=155.133.245.0/24 comment=valve list=games
+add address=162.254.192.0/24 comment=valve list=games
+add address=162.254.193.0/24 comment=valve list=games
+add address=162.254.194.0/23 comment=valve list=games
+add address=162.254.196.0/24 comment=valve list=games
+add address=162.254.197.0/24 comment=valve list=games
+add address=162.254.198.0/24 comment=valve list=games
+add address=162.254.199.0/24 comment=valve list=games
+add address=185.25.183.0/24 comment=valve list=games
+add address=205.185.194.0/24 comment=valve list=games
+add address=43.252.72.0/24 comment=PTHipernetIndodata list=games
+add address=43.252.73.0/24 comment=PTHipernetIndodata list=games
+add address=43.252.74.0/24 comment=PTHipernetIndodata list=games
+add address=43.252.75.0/24 comment=PTHipernetIndodata list=games
+add address=103.10.60.0/24 comment=PTHipernetIndodata list=games
+add address=103.10.61.0/24 comment=PTHipernetIndodata list=games
+add address=103.10.62.0/23 comment=PTHipernetIndodata list=games
+add address=103.10.62.0/24 comment=PTHipernetIndodata list=games
+add address=103.10.63.0/24 comment=PTHipernetIndodata list=games
+add address=114.129.16.0/24 comment=PTHipernetIndodata list=games
+add address=114.129.17.0/24 comment=PTHipernetIndodata list=games
+add address=114.129.19.0/24 comment=PTHipernetIndodata list=games
+add address=114.129.20.0/24 comment=PTHipernetIndodata list=games
+add address=114.129.21.0/24 comment=PTHipernetIndodata list=games
+add address=114.129.22.0/24 comment=PTHipernetIndodata list=games
+add address=114.129.23.0/24 comment=PTHipernetIndodata list=games
+add address=120.29.152.0/21 comment=PTHipernetIndodata list=games
+add address=120.29.152.0/24 comment=PTHipernetIndodata list=games
+add address=120.29.153.0/24 comment=PTHipernetIndodata list=games
+add address=120.29.155.0/24 comment=PTHipernetIndodata list=games
+add address=120.29.156.0/24 comment=PTHipernetIndodata list=games
+add address=120.29.157.0/24 comment=PTHipernetIndodata list=games
+add address=120.29.158.0/24 comment=PTHipernetIndodata list=games
+add address=120.29.159.0/24 comment=PTHipernetIndodata list=games
+add address=122.102.40.0/21 comment=PTHipernetIndodata list=games
+add address=122.102.40.0/24 comment=PTHipernetIndodata list=games
+add address=122.102.41.0/24 comment=PTHipernetIndodata list=games
+add address=122.102.43.0/24 comment=PTHipernetIndodata list=games
+add address=122.102.44.0/24 comment=PTHipernetIndodata list=games
+add address=122.102.45.0/24 comment=PTHipernetIndodata list=games
+add address=122.102.47.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.96.0/20 comment=PTHipernetIndodata list=games
+add address=180.178.96.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.97.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.98.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.99.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.100.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.102.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.103.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.104.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.106.0/24 comment=InternetServiceProvider list=games
+add address=180.178.107.0/24 comment=InternetServiceProvider list=games 
+add address=180.178.108.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.109.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.110.0/24 comment=PTHipernetIndodata list=games
+add address=180.178.111.0/24 comment=PTHipernetIndodata list=games
+add address=202.93.224.0/24 comment=PTHipernetIndodata list=games
+add address=202.93.225.0/24 comment=PTHipernetIndodata list=games
+add address=203.176.176.0/24 comment=PTHipernetIndodata list=games
+add address=203.176.177.0/24 comment=PTHipernetIndodata list=games
+add address=203.176.178.0/24 comment=PTHipernetIndodata list=games
+add address=203.117.172.5 comment=GCA-Garena list=games
+add address=174.37.243.85 comment=Whatsapp list=games
+add address=31.13.74.49 comment=Whatsapp list=games
+add address=103.248.57.10 comment=Fifa-Garena list=games
+add address=103.248.57.140 comment=Fifa-Garena list=games
+add address=103.248.57.190 comment=Fifa-Garena list=games
+add address=74.82.88.132 comment=BBM-Android list=games
+add address=74.82.73.229 comment=BBM-Android list=games
+add address=204.79.197.208 comment=Blumail list=games
