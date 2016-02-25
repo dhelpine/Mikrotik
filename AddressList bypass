@@ -236,3 +236,7 @@ add address=103.248.57.190 comment=Fifa-Garena list=games
 add address=74.82.88.132 comment=BBM-Android list=games
 add address=74.82.73.229 comment=BBM-Android list=games
 add address=204.79.197.208 comment=Blumail list=games
+add address=192.168.0.0/24 comment=Wifi list=games
+add address=192.168.1.0/24 comment=Speedy list=games
+add address=192.168.7.0/24 comment=LAN list=games
+add address=192.168.21.0/24 comment=Proxy list=games
